@@ -1,6 +1,9 @@
 {
   "title": "The Magic of Sharing! | Cute Panda 3D Story",
-  "description": "Join Barnaby the cute little panda and his forest friends in a heartwarming 3D animated moral story about kindness and sharing! Perfect bedtime story for kids and toddlers.",
+  "thumbnail_badge": "MAGIC BERRY!",
+  "viral_hook": "What happens when you find a glowing magic berry in the woods?",
+  "interactive_question": "Kids! Can you count how many glowing berries are on the tree?",
+  "description": "Join Pippin the cute little panda and his forest friends in a heartwarming 3D animated moral story about kindness and sharing! Perfect bedtime story for kids and toddlers.\n\n#kidscartoon #3danimation #bedtimestories #toontaleshub #moralstories #shorts",
   "moral": "Sharing with friends always doubles the joy!",
   "tags": [
     "kids cartoon",
@@ -8,7 +11,8 @@
     "toontales hub",
     "moral stories for kids",
     "bedtime stories",
-    "cute panda"
+    "cute panda",
+    "pixar style story"
   ],
   "youtube_settings": {
     "categoryId": "1",
@@ -20,48 +24,68 @@
   "scenes": [
     {
       "scene_number": 1,
-      "voiceover_english": "Once upon a time, in the Sunny Bamboo Woods, lived a cute little panda named Pippin.",
-      "voiceover_hindi": "एक समय की बात है, चमकीले बांस के जंगल में पिपिन नाम का एक बहुत प्यारा छोटा पांडा रहता था।",
-      "subtitle_text": "Once upon a time, lived a cute panda named Pippin.",
+      "voiceover_english": "Wait! Look at that glowing light in the Sunny Bamboo Woods! Little Pippin the Panda just discovered a secret!",
+      "voiceover_hindi": "रुको! चमकीले बांस के जंगल में उस जादुई रोशनी को देखो! नन्हे पिपिन पांडा को अभी-अभी एक रहस्य मिला है!",
+      "subtitle_text": "Look at that glowing light! Pippin found a secret!",
+      "highlight_words": [
+        "glowing",
+        "secret!"
+      ],
       "image_prompt": "3D Pixar style cute baby panda with big sparkling eyes walking happily in a glowing magical bamboo forest, cinematic lighting, 8k",
       "camera_motion": "slow_zoom_in",
-      "sfx_cue": "forest_birds_chirping"
+      "sfx_type": "sparkle"
     },
     {
       "scene_number": 2,
-      "voiceover_english": "One sunny morning, Pippin found a giant, sparkling rainbow berry under a tall tree!",
-      "voiceover_hindi": "एक सुहानी सुबह, पिपिन को एक बड़े पेड़ के नीचे एक चमकदार सतरंगी बेरी मिली!",
-      "subtitle_text": "Pippin found a giant sparkling rainbow berry!",
+      "voiceover_english": "Under the giant tree sat a sparkling rainbow berry! It smelled like sweet strawberries and warm sunshine!",
+      "voiceover_hindi": "बड़े पेड़ के नीचे एक चमकदार सतरंगी बेरी रखी थी! उसकी खुशबू मीठी स्ट्रॉबेरी और धूप जैसी थी!",
+      "subtitle_text": "Under the tree sat a sparkling rainbow berry!",
+      "highlight_words": [
+        "sparkling",
+        "rainbow"
+      ],
       "image_prompt": "3D Pixar style cute baby panda looking amazed at a glowing rainbow berry under a magical tree, vibrant colors, 8k",
-      "camera_motion": "pan_right",
-      "sfx_cue": "magical_sparkle_chime"
+      "camera_motion": "slow_zoom_out",
+      "sfx_type": "pop"
     },
     {
       "scene_number": 3,
-      "voiceover_english": "Just then, his little friend Toby the Tiger cub walked by with a rumbling, hungry tummy.",
-      "voiceover_hindi": "तभी उसका छोटा दोस्त टोबी टाइगर भूखे पेट वहां से गुजरा।",
-      "subtitle_text": "His friend Toby the Tiger was very hungry.",
+      "voiceover_english": "Just then, his best friend Toby the Tiger cub walked by with a very rumbling, hungry tummy!",
+      "voiceover_hindi": "तभी उसका सबसे अच्छा दोस्त टोबी टाइगर भूखे पेट वहां से गुजरा!",
+      "subtitle_text": "His friend Toby the Tiger was very hungry!",
+      "highlight_words": [
+        "Toby",
+        "hungry!"
+      ],
       "image_prompt": "3D Pixar style cute baby panda and a cute baby tiger cub looking at a glowing berry together in a sunny meadow, 8k",
-      "camera_motion": "slow_zoom_out",
-      "sfx_cue": "gentle_funny_boing"
+      "camera_motion": "slow_zoom_in",
+      "sfx_type": "whoosh"
     },
     {
       "scene_number": 4,
-      "voiceover_english": "Pippin smiled warmly, broke the magical berry in half, and shared it with his best friend!",
-      "voiceover_hindi": "पिपिन ने प्यार से मुस्कुराते हुए जादुई बेरी को आधा तोड़ा और अपने सबसे अच्छे दोस्त के साथ बांट लिया!",
-      "subtitle_text": "Pippin smiled and shared the berry with his friend!",
+      "voiceover_english": "Pippin smiled warmly, broke the magical berry in half, and shared it with his best friend Toby!",
+      "voiceover_hindi": "पिपिन ने प्यार से मुस्कुराते हुए जादुई बेरी को आधा तोड़ा और अपने दोस्त टोबी के साथ बांट लिया!",
+      "subtitle_text": "Pippin smiled and shared the magical berry!",
+      "highlight_words": [
+        "smiled",
+        "shared"
+      ],
       "image_prompt": "3D Pixar style cute baby panda sharing a glowing fruit with a cute baby tiger cub, both smiling happily, magical sparkles, 8k",
-      "camera_motion": "slow_zoom_in",
-      "sfx_cue": "happy_ukulele_melody"
+      "camera_motion": "slow_zoom_out",
+      "sfx_type": "sparkle"
     },
     {
       "scene_number": 5,
-      "voiceover_english": "Suddenly, the berry tree bloomed with hundreds of treats! Because sharing always brings pure magic!",
-      "voiceover_hindi": "अचानक पूरे पेड़ पर ढेर सारे मीठे फल खिल उठे! क्योंकि बांटने से हमेशा खुशियां दोगुनी हो जाती हैं!",
-      "subtitle_text": "Sharing always brings pure magic and joy!",
+      "voiceover_english": "Suddenly, the whole tree bloomed with hundreds of treats! Because sharing with friends always creates pure magic!",
+      "voiceover_hindi": "अचानक पूरे पेड़ पर ढेर सारे मीठे फल खिल उठे! क्योंकि दोस्तों के साथ बांटने से हमेशा सच्चा जादू होता है!",
+      "subtitle_text": "Sharing with friends always creates pure magic!",
+      "highlight_words": [
+        "Sharing",
+        "magic!"
+      ],
       "image_prompt": "3D Pixar style cute baby panda and baby tiger celebrating under a tree full of glowing colorful berries, rainbow in sky, 8k",
-      "camera_motion": "zoom_in_center",
-      "sfx_cue": "cheerful_victory_fanfare"
+      "camera_motion": "slow_zoom_in",
+      "sfx_type": "fanfare"
     }
   ]
 }
