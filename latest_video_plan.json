@@ -1,90 +1,72 @@
 {
-  "title": "The Magic of Sharing! | Cute Panda 3D Story",
-  "thumbnail_badge": "MAGIC BERRY!",
-  "viral_hook": "What happens when you find a glowing magic berry in the woods?",
-  "interactive_question": "Kids! Can you count how many glowing berries are on the tree?",
-  "description": "Join Pippin the cute little panda and his forest friends in a heartwarming 3D animated moral story about kindness and sharing! Perfect bedtime story for kids and toddlers.\n\n#kidscartoon #3danimation #bedtimestories #toontaleshub #moralstories #shorts",
-  "moral": "Sharing with friends always doubles the joy!",
+  "title": "The Magical Glowing Tree! | 3D Kids Cartoon",
+  "thumbnail_badge": "MAGIC SECRET!",
+  "viral_hook": "Wait! Look at that glowing magic tree shining bright in the enchanted forest!",
+  "interactive_question": "Kids! Can you spot the hidden golden star in this magical tree?",
+  "moral": "Kindness and sharing bring true magical rewards!",
   "tags": [
     "kids cartoon",
     "3d animation",
     "toontales hub",
-    "moral stories for kids",
     "bedtime stories",
-    "cute panda",
-    "pixar style story"
+    "moral stories",
+    "pixar animation",
+    "shorts"
   ],
   "youtube_settings": {
     "categoryId": "1",
     "madeForKids": true,
     "defaultLanguage": "en-US"
   },
-  "character_style_seed": "Cute chubby baby panda with big sparkling blue eyes, soft Pixar 3D fur, wearing a tiny red scarf, Disney Pixar 3D animation style",
-  "thumbnail_prompt": "3D Pixar style cute baby panda holding a glowing golden berry in a magical colorful forest, ultra vibrant, expressive face, 8k",
+  "character_style_seed": "Ultra vibrant 3D Pixar Disney animation style, cinematic studio lighting, highly detailed fur and textures, 8k",
+  "thumbnail_prompt": "Vibrant 3D Pixar style magical glowing tree with golden leaves in a colorful fairy forest, highly detailed, 8k",
   "scenes": [
     {
       "scene_number": 1,
-      "voiceover_english": "Wait! Look at that glowing light in the Sunny Bamboo Woods! Little Pippin the Panda just discovered a secret!",
-      "voiceover_hindi": "रुको! चमकीले बांस के जंगल में उस जादुई रोशनी को देखो! नन्हे पिपिन पांडा को अभी-अभी एक रहस्य मिला है!",
-      "subtitle_text": "Look at that glowing light! Pippin found a secret!",
+      "voiceover_english": "Wait! Look at that magical glowing tree shining bright in the middle of the enchanted forest!",
+      "subtitle_text": "Look at that magical glowing tree shining bright!",
       "highlight_words": [
-        "glowing",
-        "secret!"
+        "magical",
+        "glowing"
       ],
-      "image_prompt": "3D Pixar style cute baby panda with big sparkling eyes walking happily in a glowing magical bamboo forest, cinematic lighting, 8k",
-      "camera_motion": "slow_zoom_in",
+      "image_prompt": "Ultra vibrant 3D Pixar style glowing magical tree with sparkling golden leaves in a fairy forest, cinematic lighting, 8k",
+      "camera_motion": "zoom_in_slow",
       "sfx_type": "sparkle"
     },
     {
       "scene_number": 2,
-      "voiceover_english": "Under the giant tree sat a sparkling rainbow berry! It smelled like sweet strawberries and warm sunshine!",
-      "voiceover_hindi": "बड़े पेड़ के नीचे एक चमकदार सतरंगी बेरी रखी थी! उसकी खुशबू मीठी स्ट्रॉबेरी और धूप जैसी थी!",
-      "subtitle_text": "Under the tree sat a sparkling rainbow berry!",
+      "voiceover_english": "Little Barnaby the Bear rushed over and found a shiny golden crown resting on the roots!",
+      "subtitle_text": "Barnaby found a shiny golden crown!",
       "highlight_words": [
-        "sparkling",
-        "rainbow"
+        "golden",
+        "crown!"
       ],
-      "image_prompt": "3D Pixar style cute baby panda looking amazed at a glowing rainbow berry under a magical tree, vibrant colors, 8k",
-      "camera_motion": "slow_zoom_out",
+      "image_prompt": "3D Pixar style cute chubby bear looking amazed at a shiny golden crown on tree roots, colorful magical background, 8k",
+      "camera_motion": "pan_right",
       "sfx_type": "pop"
     },
     {
       "scene_number": 3,
-      "voiceover_english": "Just then, his best friend Toby the Tiger cub walked by with a very rumbling, hungry tummy!",
-      "voiceover_hindi": "तभी उसका सबसे अच्छा दोस्त टोबी टाइगर भूखे पेट वहां से गुजरा!",
-      "subtitle_text": "His friend Toby the Tiger was very hungry!",
+      "voiceover_english": "Instead of keeping it, Barnaby shared it with all his tired woodland friends!",
+      "subtitle_text": "Barnaby shared it with all his friends!",
       "highlight_words": [
-        "Toby",
-        "hungry!"
+        "shared",
+        "friends!"
       ],
-      "image_prompt": "3D Pixar style cute baby panda and a cute baby tiger cub looking at a glowing berry together in a sunny meadow, 8k",
-      "camera_motion": "slow_zoom_in",
+      "image_prompt": "3D Pixar style cute baby bear sharing a glowing crown with forest animals, joyful expressions, vibrant colors, 8k",
+      "camera_motion": "zoom_out_fast",
       "sfx_type": "whoosh"
     },
     {
       "scene_number": 4,
-      "voiceover_english": "Pippin smiled warmly, broke the magical berry in half, and shared it with his best friend Toby!",
-      "voiceover_hindi": "पिपिन ने प्यार से मुस्कुराते हुए जादुई बेरी को आधा तोड़ा और अपने दोस्त टोबी के साथ बांट लिया!",
-      "subtitle_text": "Pippin smiled and shared the magical berry!",
+      "voiceover_english": "Suddenly, the entire forest burst into a shower of rainbow fireworks and joyful music!",
+      "subtitle_text": "The entire forest burst into rainbow fireworks!",
       "highlight_words": [
-        "smiled",
-        "shared"
+        "rainbow",
+        "fireworks!"
       ],
-      "image_prompt": "3D Pixar style cute baby panda sharing a glowing fruit with a cute baby tiger cub, both smiling happily, magical sparkles, 8k",
-      "camera_motion": "slow_zoom_out",
-      "sfx_type": "sparkle"
-    },
-    {
-      "scene_number": 5,
-      "voiceover_english": "Suddenly, the whole tree bloomed with hundreds of treats! Because sharing with friends always creates pure magic!",
-      "voiceover_hindi": "अचानक पूरे पेड़ पर ढेर सारे मीठे फल खिल उठे! क्योंकि दोस्तों के साथ बांटने से हमेशा सच्चा जादू होता है!",
-      "subtitle_text": "Sharing with friends always creates pure magic!",
-      "highlight_words": [
-        "Sharing",
-        "magic!"
-      ],
-      "image_prompt": "3D Pixar style cute baby panda and baby tiger celebrating under a tree full of glowing colorful berries, rainbow in sky, 8k",
-      "camera_motion": "slow_zoom_in",
+      "image_prompt": "3D Pixar style forest animals celebrating under colorful rainbow fireworks in the night sky, magical sparkles, 8k",
+      "camera_motion": "zoom_in_slow",
       "sfx_type": "fanfare"
     }
   ]
