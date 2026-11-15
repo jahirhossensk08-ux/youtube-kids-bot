@@ -21,7 +21,7 @@ if not hasattr(PIL.Image, "ANTIALIAS"):
 from PIL import Image, ImageDraw, ImageFont
 
 # =====================================================================
-# 1. CONFIGURATION & V14 APEX HYPER-ENGAGEMENT SETTINGS
+# 1. CONFIGURATION & V17 CINEMATIC STUDIO SETTINGS
 # =====================================================================
 DEFAULT_API_KEY = "AQ.Ab8RN6LYwTy4uxCtviZ9HmyJHlQmfRTNUJVPglDhixRCOUR5rg"
 env_key = os.environ.get("GEMINI_API_KEY", "").strip()
@@ -36,15 +36,15 @@ GEMINI_MODELS = [
 
 HISTORY_FILE = "used_topics.json"
 OUTPUT_SCRIPT_FILE = "latest_video_plan.json"
-FINAL_VIDEO_PATH = os.path.join("output_videos", "final_v14_apex_1080p.mp4")
-FINAL_SHORT_PATH = os.path.join("output_videos", "final_v14_apex_short.mp4")
+FINAL_VIDEO_PATH = os.path.join("output_videos", "cinematic_kids_story_1080p.mp4")
+FINAL_SHORT_PATH = os.path.join("output_videos", "cinematic_kids_viral_short.mp4")
 SEO_REPORT_PATH = os.path.join("output_videos", "youtube_seo_metadata.txt")
 
-DIRS = ["output_videos", "temp_assets", "audio_clips", "scene_images", "thumbnails", "ken_burns_clips"]
+DIRS = ["output_videos", "temp_assets", "audio_clips", "scene_images", "thumbnails", "studio_renders"]
 for d in DIRS:
     os.makedirs(d, exist_ok=True)
 
-# 35 Ultra-Engaging US Kids Moral Story Themes with High Search Intent
+# 40 Ultra-Engaging US Kids Moral Story Themes with High Search Intent
 KIDS_THEMES = [
     "A magical glowing tree in the enchanted forest that grants kind wishes",
     "A brave little star who fell from the night sky and needed his friends to guide him back",
@@ -75,12 +75,7 @@ KIDS_THEMES = [
     "A clever little beaver who built a water slide for all the river animals",
     "A joyful little lamb who discovered a meadow of singing flowers",
     "A hardworking honeybee who shared her golden nectar with a thirsty butterfly",
-    "A magical music box that filled the sleepy village with dancing stars",
-    "A brave little kite who wanted to touch the rainbow during a gentle summer breeze",
-    "A friendly cloud who gave shade to a tired little turtle in the desert",
-    "A tiny caterpillar who dreamed of painting the sky with butterfly wings",
-    "A cheerful squirrel who traded acorns for sweet smiles across the forest",
-    "A magical star-catcher who shared his glowing light with all the lonely shadows"
+    "A magical music box that filled the sleepy village with dancing stars"
 ]
 
 US_KIDS_VOICES = [
@@ -107,7 +102,7 @@ def save_used_topic(topic):
     if topic not in topics:
         topics.append(topic)
         with open(HISTORY_FILE, "w", encoding="utf-8") as f:
-            json.dump(topics[-350:], f, indent=2, ensure_ascii=False)
+            json.dump(topics[-400:], f, indent=2, ensure_ascii=False)
 
 def pick_fresh_topic():
     used = load_used_topics()
@@ -130,9 +125,9 @@ def extract_clean_json(raw_text):
     return json.loads(cleaned)
 
 def get_emergency_fallback_plan(topic):
-    print("[Fallback Engine] Activating V14 Apex Ultimate Backup Plan...")
+    print("[Fallback Engine] Activating V17 Cinematic Backup Plan...")
     return {
-        "title": "The Magical Glowing Tree! | 3D Kids Cartoon",
+        "title": "The Magical Glowing Tree! | 3D Pixar Style Cartoon",
         "thumbnail_badge": "MAGIC SECRET!",
         "viral_hook": "Wait! Look at that glowing magic tree shining bright in the enchanted forest!",
         "interactive_question": "Kids! Can you spot the hidden golden star in this magical tree?",
@@ -148,7 +143,7 @@ def get_emergency_fallback_plan(topic):
                 "subtitle_text": "Look at that magical glowing tree shining bright!",
                 "highlight_words": ["magical", "glowing"],
                 "image_prompt": "Ultra vibrant 3D Pixar style glowing magical tree with sparkling golden leaves in a fairy forest, cinematic lighting, 8k",
-                "camera_motion": "zoom_in_slow",
+                "camera_motion": "zoom_in",
                 "sfx_type": "sparkle"
             },
             {
@@ -166,7 +161,7 @@ def get_emergency_fallback_plan(topic):
                 "subtitle_text": "Barnaby shared it with all his friends!",
                 "highlight_words": ["shared", "friends!"],
                 "image_prompt": "3D Pixar style cute baby bear sharing a glowing crown with forest animals, joyful expressions, vibrant colors, 8k",
-                "camera_motion": "zoom_out_fast",
+                "camera_motion": "zoom_out",
                 "sfx_type": "whoosh"
             },
             {
@@ -175,14 +170,14 @@ def get_emergency_fallback_plan(topic):
                 "subtitle_text": "The entire forest burst into rainbow fireworks!",
                 "highlight_words": ["rainbow", "fireworks!"],
                 "image_prompt": "3D Pixar style forest animals celebrating under colorful rainbow fireworks in the night sky, magical sparkles, 8k",
-                "camera_motion": "zoom_in_slow",
+                "camera_motion": "zoom_in",
                 "sfx_type": "fanfare"
             }
         ]
     }
 
 # =====================================================================
-# 4. AI VIRAL SCRIPT GENERATOR
+# 4. AI CINEMATIC SCRIPT GENERATOR
 # =====================================================================
 def call_gemini_api(prompt):
     for model_name in GEMINI_MODELS:
@@ -211,12 +206,12 @@ def generate_studio_video_plan():
     topic = pick_fresh_topic()
     print(f"\n[Selected Concept]: {topic}")
     prompt = f"""
-    You are an expert YouTube Kids Viral Strategist and Pixar Creative Director. Create an ultra-engaging 60-second animated story plan based on: "{topic}".
+    You are an expert Hollywood Pixar Creative Director and Child Psychologist. Create an ultra-engaging 60-second animated story plan based on: "{topic}".
     Target Audience: Children aged 3 to 8 in USA, UK, Canada, Australia.
     VIRAL RULES:
     - Scene 1 MUST start with an immediate exciting hook (e.g. "Wait! Look at that glowing magic box!").
     - Provide 1-2 'highlight_words' per scene for vibrant yellow caption highlighting.
-    - Provide engaging camera_motion ("zoom_in_slow", "zoom_out_fast", "pan_right") and sfx_type ("sparkle", "pop", "whoosh", "fanfare").
+    - Provide engaging camera_motion ("zoom_in", "zoom_out", "pan_right") and sfx_type ("sparkle", "pop", "whoosh", "fanfare").
 
     Return STRICTLY valid JSON:
     {{
@@ -236,7 +231,7 @@ def generate_studio_video_plan():
           "subtitle_text": "Punchy short subtitle text",
           "highlight_words": ["magical", "secret"],
           "image_prompt": "Ultra vibrant 3D Pixar studio quality scene description, 8k",
-          "camera_motion": "zoom_in_slow",
+          "camera_motion": "zoom_in",
           "sfx_type": "sparkle"
         }}
       ]
@@ -264,7 +259,7 @@ def generate_studio_video_plan():
     return plan
 
 # =====================================================================
-# 5. AUDIO & DYNAMIC SFX / LULLABY SYNTHESIZER
+# 5. AUDIO & CINEMATIC SFX / LULLABY SYNTHESIZER
 # =====================================================================
 async def _edge_tts_save(text, output_path, voice="en-US-AnaNeural"):
     import edge_tts
@@ -351,13 +346,13 @@ def generate_kids_background_music(duration_sec, output_wav="temp_assets/bg.wav"
             pos = (i % note_len) / float(note_len)
             env = math.exp(-3.0 * pos) * math.sin(math.pi * pos)
             val = math.sin(2.0 * math.pi * freq * t) * env
-            sample = int(val * 2500)
+            sample = int(val * 1800)
             frames.extend(struct.pack("<h", max(-32767, min(32767, sample))))
         wav_file.writeframes(frames)
     return output_wav
 
 # =====================================================================
-# 6. HD 3D VISUALS, POLISHED THUMBNAILS & DYNAMIC CAPTIONS
+# 6. HD 3D VISUALS, POLISHED THUMBNAILS & CINEMATIC SUBTITLES
 # =====================================================================
 def get_font(size):
     for fp in [
@@ -482,7 +477,7 @@ def generate_scene_visual(prompt, subtitle_text, scene_num, is_thumbnail=False, 
     filename = "thumbnail.jpg" if is_thumbnail else f"scene_{scene_num}.jpg"
     output_path = os.path.join(folder, filename)
 
-    clean_prompt = f"Ultra vibrant 3D Pixar Disney animation style, high definition, sharp detailed textures, expressive cute characters, {prompt}"
+    clean_prompt = f"Ultra vibrant 3D Pixar Disney animation style, cinematic studio lighting, sharp detailed textures, expressive cute characters, {prompt}"
     encoded = urllib.parse.quote(clean_prompt[:380])
     seed = random.randint(1000, 99999)
     url = f"https://image.pollinations.ai/prompt/{encoded}?width=1280&height=720&seed={seed}&nologo=true"
@@ -511,7 +506,7 @@ def generate_scene_visual(prompt, subtitle_text, scene_num, is_thumbnail=False, 
     return output_path
 
 # =====================================================================
-# 7. ADVANCED DYNAMIC MOVIEPY VIDEO COMPILER WITH KEN BURNS & TRANSITIONS
+# 7. CINEMATIC MOVIEPY VIDEO COMPILER WITH SMOOTH MOTION & TRANSITIONS
 # =====================================================================
 def render_complete_videos(plan):
     from moviepy.editor import ImageClip, AudioFileClip, CompositeAudioClip, concatenate_videoclips, vfx
@@ -521,13 +516,13 @@ def render_complete_videos(plan):
     landscape_clips = []
     vertical_clips = []
 
-    print("\n🎬 STEP 3: Compiling 3D Video Clips with Ken Burns Motion & Audio...")
+    print("\n🎬 STEP 3: Compiling Cinematic Video Clips & Mastering Audio...")
     for idx, s in enumerate(scenes, start=1):
         s_num = s.get("scene_number", idx)
         vo_text = s.get("voiceover_english", "Welcome to ToonTales Hub!")
         sub_text = s.get("subtitle_text", vo_text)
         hl_words = s.get("highlight_words", [])
-        cam_motion = s.get("camera_motion", "zoom_in_slow")
+        cam_motion = s.get("camera_motion", "zoom_in")
         sfx_type = s.get("sfx_type", "sparkle")
 
         img_raw = os.path.join("scene_images", f"scene_{s_num}.jpg")
@@ -557,22 +552,22 @@ def render_complete_videos(plan):
         except Exception:
             combined_audio = voice_clip
 
-        # Advanced Ken Burns Motion (Smooth Pan & Zoom Effect for true video feel)
+        # Cinematic Motion (Smooth Zoom & Pan Transitions)
         clip_l = ImageClip(img_land).set_duration(duration)
-        if cam_motion == "zoom_out_fast":
-            clip_l = clip_l.resize(lambda t, d=duration: 1.06 - 0.05 * (t / d))
+        if cam_motion == "zoom_out":
+            clip_l = clip_l.resize(lambda t, d=duration: 1.05 - 0.04 * (t / d))
         elif cam_motion == "pan_right":
-            clip_l = clip_l.resize(lambda t, d=duration: 1.03 + 0.02 * (t / d))
+            clip_l = clip_l.resize(lambda t, d=duration: 1.02 + 0.03 * (t / d))
         else:
-            clip_l = clip_l.resize(lambda t, d=duration: 1.0 + 0.05 * (t / d))
+            clip_l = clip_l.resize(lambda t, d=duration: 1.0 + 0.045 * (t / d))
 
-        clip_l = clip_l.fx(vfx.fadein, 0.3).fx(vfx.fadeout, 0.3)
+        clip_l = clip_l.fx(vfx.fadein, 0.4).fx(vfx.fadeout, 0.4)
         if combined_audio:
             clip_l = clip_l.set_audio(combined_audio)
         landscape_clips.append(clip_l)
 
         clip_v = ImageClip(img_vert).set_duration(duration)
-        clip_v = clip_v.fx(vfx.fadein, 0.3).fx(vfx.fadeout, 0.3)
+        clip_v = clip_v.fx(vfx.fadein, 0.4).fx(vfx.fadeout, 0.4)
         if combined_audio:
             clip_v = clip_v.set_audio(combined_audio)
         vertical_clips.append(clip_v)
@@ -605,7 +600,7 @@ def render_complete_videos(plan):
     except Exception:
         pass
 
-    print(f"  📽️ Rendering 1080p Landscape Video -> {FINAL_VIDEO_PATH}")
+    print(f"  📽️ Rendering 1080p Cinematic Master Video -> {FINAL_VIDEO_PATH}")
     final_land.write_videofile(FINAL_VIDEO_PATH, fps=24, codec="libx264", audio_codec="aac", threads=2, preset="ultrafast", logger=None)
 
     print(f"  📱 Rendering Vertical YouTube Short -> {FINAL_SHORT_PATH}")
@@ -613,7 +608,7 @@ def render_complete_videos(plan):
 
     final_land.close()
     final_vert.close()
-    print("  ✅ Both Videos Rendered Successfully!")
+    print("  ✅ Cinematic Studio Rendering Complete!")
 
 # =====================================================================
 # 8. AUTOMATIC YOUTUBE UPLOADER (OPTIONAL VIA GITHUB SECRETS)
@@ -683,14 +678,14 @@ def upload_to_youtube_if_configured(plan, video_path):
 # =====================================================================
 if __name__ == "__main__":
     print("====================================================")
-    print("   TOONTALES HUB - V14 APEX ULTIMATE STUDIO BOT     ")
+    print("   TOONTALES HUB - V17 CINEMATIC STUDIO BOT         ")
     print("====================================================")
 
     try:
         plan = generate_studio_video_plan()
         scenes = plan.get("scenes", [])
         chosen_voice = random.choice(US_KIDS_VOICES)
-        print(f"\n✅ STEP 1: Viral Script Plan Generated Successfully!")
+        print(f"\n✅ STEP 1: Cinematic Script Plan Generated Successfully!")
         print(f"📌 Video Title : {plan.get('title')}")
         print(f"💡 Story Moral : {plan.get('moral', 'Always be kind!')}")
         print(f"🎙️ Narrator    : {chosen_voice}")
@@ -713,7 +708,7 @@ if __name__ == "__main__":
         upload_to_youtube_if_configured(plan, FINAL_VIDEO_PATH)
 
         print("\n====================================================")
-        print("🎉 100% COMPLETE! V14 APEX VIDEOS & THUMBNAIL READY!")
+        print("🎉 100% COMPLETE! CINEMATIC MASTER VIDEOS READY!")
         print(f"🎬 Main Video  : {FINAL_VIDEO_PATH}")
         print(f"📱 Short Video : {FINAL_SHORT_PATH}")
         print(f"📄 SEO Report  : {SEO_REPORT_PATH}")
