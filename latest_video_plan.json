@@ -1,5 +1,5 @@
 {
-  "title": "The Magical Glowing Tree! | 3D Kids Cartoon",
+  "title": "The Magical Glowing Tree! | 3D Pixar Style Cartoon",
   "thumbnail_badge": "MAGIC SECRET!",
   "viral_hook": "Wait! Look at that glowing magic tree shining bright in the enchanted forest!",
   "interactive_question": "Kids! Can you spot the hidden golden star in this magical tree?",
@@ -30,7 +30,7 @@
         "glowing"
       ],
       "image_prompt": "Ultra vibrant 3D Pixar style glowing magical tree with sparkling golden leaves in a fairy forest, cinematic lighting, 8k",
-      "camera_motion": "zoom_in_slow",
+      "camera_motion": "zoom_in",
       "sfx_type": "sparkle"
     },
     {
@@ -54,7 +54,7 @@
         "friends!"
       ],
       "image_prompt": "3D Pixar style cute baby bear sharing a glowing crown with forest animals, joyful expressions, vibrant colors, 8k",
-      "camera_motion": "zoom_out_fast",
+      "camera_motion": "zoom_out",
       "sfx_type": "whoosh"
     },
     {
@@ -66,7 +66,7 @@
         "fireworks!"
       ],
       "image_prompt": "3D Pixar style forest animals celebrating under colorful rainbow fireworks in the night sky, magical sparkles, 8k",
-      "camera_motion": "zoom_in_slow",
+      "camera_motion": "zoom_in",
       "sfx_type": "fanfare"
     }
   ]
