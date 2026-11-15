@@ -2,7 +2,6 @@
   "title": "The Magical Glowing Tree! | 3D Pixar Style Cartoon",
   "thumbnail_badge": "MAGIC SECRET!",
   "viral_hook": "Wait! Look at that glowing magic tree shining bright in the enchanted forest!",
-  "interactive_question": "Kids! Can you spot the hidden golden star in this magical tree?",
   "moral": "Kindness and sharing bring true magical rewards!",
   "tags": [
     "kids cartoon",
@@ -10,8 +9,7 @@
     "toontales hub",
     "bedtime stories",
     "moral stories",
-    "pixar animation",
-    "shorts"
+    "pixar animation"
   ],
   "youtube_settings": {
     "categoryId": "1",
@@ -68,6 +66,30 @@
       "image_prompt": "3D Pixar style forest animals celebrating under colorful rainbow fireworks in the night sky, magical sparkles, 8k",
       "camera_motion": "zoom_in",
       "sfx_type": "fanfare"
+    },
+    {
+      "scene_number": 5,
+      "voiceover_english": "And from that day on, everyone in the enchanted forest learned that sharing is true magic!",
+      "subtitle_text": "Sharing is true magic for everyone!",
+      "highlight_words": [
+        "sharing",
+        "magic!"
+      ],
+      "image_prompt": "3D Pixar style forest animals cheering together happily under a rainbow sky, 8k",
+      "camera_motion": "zoom_in",
+      "sfx_type": "fanfare"
+    },
+    {
+      "scene_number": 6,
+      "voiceover_english": "Remember kids, a kind heart shines brighter than the biggest star in the night sky!",
+      "subtitle_text": "A kind heart shines brighter than the stars!",
+      "highlight_words": [
+        "kind",
+        "heart"
+      ],
+      "image_prompt": "3D Pixar style cute animals looking up at a starry night sky smiling, warm cozy lighting, 8k",
+      "camera_motion": "zoom_out",
+      "sfx_type": "sparkle"
     }
   ]
 }
