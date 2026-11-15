@@ -21,7 +21,7 @@ if not hasattr(PIL.Image, "ANTIALIAS"):
 from PIL import Image, ImageDraw, ImageFont
 
 # =====================================================================
-# 1. CONFIGURATION & V17 CINEMATIC STUDIO SETTINGS
+# 1. CONFIGURATION & V19 HYPER-CINEMATIC APEX SETTINGS
 # =====================================================================
 DEFAULT_API_KEY = "AQ.Ab8RN6LYwTy4uxCtviZ9HmyJHlQmfRTNUJVPglDhixRCOUR5rg"
 env_key = os.environ.get("GEMINI_API_KEY", "").strip()
@@ -36,15 +36,15 @@ GEMINI_MODELS = [
 
 HISTORY_FILE = "used_topics.json"
 OUTPUT_SCRIPT_FILE = "latest_video_plan.json"
-FINAL_VIDEO_PATH = os.path.join("output_videos", "cinematic_kids_story_1080p.mp4")
-FINAL_SHORT_PATH = os.path.join("output_videos", "cinematic_kids_viral_short.mp4")
+FINAL_LONG_VIDEO_PATH = os.path.join("output_videos", "jarvis_apex_5min_story.mp4")
+SHORTS_OUTPUT_DIR = os.path.join("output_videos", "viral_shorts_clips")
 SEO_REPORT_PATH = os.path.join("output_videos", "youtube_seo_metadata.txt")
 
-DIRS = ["output_videos", "temp_assets", "audio_clips", "scene_images", "thumbnails", "studio_renders"]
+DIRS = ["output_videos", "temp_assets", "audio_clips", "scene_images", "thumbnails", SHORTS_OUTPUT_DIR]
 for d in DIRS:
     os.makedirs(d, exist_ok=True)
 
-# 40 Ultra-Engaging US Kids Moral Story Themes with High Search Intent
+# 45 Ultra-Engaging US Kids Moral Story Themes with High Search Intent
 KIDS_THEMES = [
     "A magical glowing tree in the enchanted forest that grants kind wishes",
     "A brave little star who fell from the night sky and needed his friends to guide him back",
@@ -102,7 +102,7 @@ def save_used_topic(topic):
     if topic not in topics:
         topics.append(topic)
         with open(HISTORY_FILE, "w", encoding="utf-8") as f:
-            json.dump(topics[-400:], f, indent=2, ensure_ascii=False)
+            json.dump(topics[-450:], f, indent=2, ensure_ascii=False)
 
 def pick_fresh_topic():
     used = load_used_topics()
@@ -125,14 +125,13 @@ def extract_clean_json(raw_text):
     return json.loads(cleaned)
 
 def get_emergency_fallback_plan(topic):
-    print("[Fallback Engine] Activating V17 Cinematic Backup Plan...")
+    print("[Apex Engine] Activating Cinematic Studio Backup Plan...")
     return {
         "title": "The Magical Glowing Tree! | 3D Pixar Style Cartoon",
         "thumbnail_badge": "MAGIC SECRET!",
         "viral_hook": "Wait! Look at that glowing magic tree shining bright in the enchanted forest!",
-        "interactive_question": "Kids! Can you spot the hidden golden star in this magical tree?",
         "moral": "Kindness and sharing bring true magical rewards!",
-        "tags": ["kids cartoon", "3d animation", "toontales hub", "bedtime stories", "moral stories", "pixar animation", "shorts"],
+        "tags": ["kids cartoon", "3d animation", "toontales hub", "bedtime stories", "moral stories", "pixar animation"],
         "youtube_settings": {"categoryId": "1", "madeForKids": True, "defaultLanguage": "en-US"},
         "character_style_seed": "Ultra vibrant 3D Pixar Disney animation style, cinematic studio lighting, highly detailed fur and textures, 8k",
         "thumbnail_prompt": "Vibrant 3D Pixar style magical glowing tree with golden leaves in a colorful fairy forest, highly detailed, 8k",
@@ -172,12 +171,30 @@ def get_emergency_fallback_plan(topic):
                 "image_prompt": "3D Pixar style forest animals celebrating under colorful rainbow fireworks in the night sky, magical sparkles, 8k",
                 "camera_motion": "zoom_in",
                 "sfx_type": "fanfare"
+            },
+            {
+                "scene_number": 5,
+                "voiceover_english": "And from that day on, everyone in the enchanted forest learned that sharing is true magic!",
+                "subtitle_text": "Sharing is true magic for everyone!",
+                "highlight_words": ["sharing", "magic!"],
+                "image_prompt": "3D Pixar style forest animals cheering together happily under a rainbow sky, 8k",
+                "camera_motion": "zoom_in",
+                "sfx_type": "fanfare"
+            },
+            {
+                "scene_number": 6,
+                "voiceover_english": "Remember kids, a kind heart shines brighter than the biggest star in the night sky!",
+                "subtitle_text": "A kind heart shines brighter than the stars!",
+                "highlight_words": ["kind", "heart"],
+                "image_prompt": "3D Pixar style cute animals looking up at a starry night sky smiling, warm cozy lighting, 8k",
+                "camera_motion": "zoom_out",
+                "sfx_type": "sparkle"
             }
         ]
     }
 
 # =====================================================================
-# 4. AI CINEMATIC SCRIPT GENERATOR
+# 4. AI SCRIPT GENERATOR
 # =====================================================================
 def call_gemini_api(prompt):
     for model_name in GEMINI_MODELS:
@@ -190,7 +207,7 @@ def call_gemini_api(prompt):
         data = json.dumps(payload).encode("utf-8")
         for attempt in range(1, 3):
             try:
-                print(f"[AI Brain] Requesting '{model_name}' (Attempt {attempt}/2)...")
+                print(f"[Apex Brain] Requesting '{model_name}' (Attempt {attempt}/2)...")
                 req = urllib.request.Request(url, data=data, headers=headers, method="POST")
                 with urllib.request.urlopen(req, timeout=45) as response:
                     res_body = response.read().decode("utf-8")
@@ -206,10 +223,10 @@ def generate_studio_video_plan():
     topic = pick_fresh_topic()
     print(f"\n[Selected Concept]: {topic}")
     prompt = f"""
-    You are an expert Hollywood Pixar Creative Director and Child Psychologist. Create an ultra-engaging 60-second animated story plan based on: "{topic}".
+    You are an expert Hollywood Pixar Creative Director and Child Psychologist. Create an ultra-engaging rich animated story plan (with 6 detailed rich scenes) based on: "{topic}".
     Target Audience: Children aged 3 to 8 in USA, UK, Canada, Australia.
     VIRAL RULES:
-    - Scene 1 MUST start with an immediate exciting hook (e.g. "Wait! Look at that glowing magic box!").
+    - Scene 1 MUST start with an immediate exciting hook.
     - Provide 1-2 'highlight_words' per scene for vibrant yellow caption highlighting.
     - Provide engaging camera_motion ("zoom_in", "zoom_out", "pan_right") and sfx_type ("sparkle", "pop", "whoosh", "fanfare").
 
@@ -218,16 +235,15 @@ def generate_studio_video_plan():
       "title": "Catchy Viral YouTube Title for Kids (max 60 chars)",
       "thumbnail_badge": "MAGIC SECRET!",
       "viral_hook": "1-sentence exciting opening hook",
-      "interactive_question": "Fun question for kids",
       "moral": "Clear 1-line moral lesson",
       "tags": ["kids cartoon", "3d animation", "toontales hub", "bedtime stories"],
       "youtube_settings": {{"categoryId": "1", "madeForKids": true, "defaultLanguage": "en-US"}},
-      "character_style_seed": "Ultra vibrant 3D Pixar Disney animation style, cinematic studio lighting, highly detailed fur, 8k",
-      "thumbnail_prompt": "Vibrant 3D Pixar style thumbnail prompt, ultra-expressive cute characters, bright colors, 8k",
+      "character_style_seed": "Ultra vibrant 3D Pixar Disney animation style, cinematic lighting, 8k",
+      "thumbnail_prompt": "Vibrant 3D Pixar style thumbnail prompt, ultra-expressive cute characters, 8k",
       "scenes": [
         {{
           "scene_number": 1,
-          "voiceover_english": "Exciting engaging narration sentence for scene 1 (15-20 words)",
+          "voiceover_english": "Engaging narration sentence for scene 1 (25-30 words rich storytelling)",
           "subtitle_text": "Punchy short subtitle text",
           "highlight_words": ["magical", "secret"],
           "image_prompt": "Ultra vibrant 3D Pixar studio quality scene description, 8k",
@@ -236,7 +252,7 @@ def generate_studio_video_plan():
         }}
       ]
     }}
-    Include exactly 5 wonderful scenes with a happy moral ending.
+    Include exactly 6 wonderful scenes to make a rich, long narrative story.
     """
     plan = call_gemini_api(prompt)
     if not plan or "scenes" not in plan or not isinstance(plan.get("scenes"), list):
@@ -250,7 +266,6 @@ def generate_studio_video_plan():
             sf.write(f"TITLE: {plan.get('title')}\n")
             sf.write(f"HOOK: {plan.get('viral_hook')}\n")
             sf.write(f"MORAL: {plan.get('moral')}\n\n")
-            sf.write(f"DESCRIPTION:\n{plan.get('description', 'Fun 3D cartoon story for kids!')}\n\n")
             sf.write(f"TAGS: {', '.join(plan.get('tags', []))}\n")
     except Exception:
         pass
@@ -259,7 +274,7 @@ def generate_studio_video_plan():
     return plan
 
 # =====================================================================
-# 5. AUDIO & CINEMATIC SFX / LULLABY SYNTHESIZER
+# 5. AUDIO & SYNTHESIZER
 # =====================================================================
 async def _edge_tts_save(text, output_path, voice="en-US-AnaNeural"):
     import edge_tts
@@ -271,10 +286,9 @@ def generate_scene_audio(text, scene_num, chosen_voice="en-US-AnaNeural"):
     try:
         asyncio.run(_edge_tts_save(text, output_path, voice=chosen_voice))
         if os.path.exists(output_path) and os.path.getsize(output_path) > 500:
-            print(f"  🎙️ [Voice] Scene {scene_num} HD Audio Ready")
             return output_path
-    except Exception as e:
-        print(f"  [Voice Fallback] Edge-TTS warning ({e}), switching to gTTS...")
+    except Exception:
+        pass
 
     try:
         from gtts import gTTS
@@ -352,7 +366,7 @@ def generate_kids_background_music(duration_sec, output_wav="temp_assets/bg.wav"
     return output_wav
 
 # =====================================================================
-# 6. HD 3D VISUALS, POLISHED THUMBNAILS & CINEMATIC SUBTITLES
+# 6. VISUALS & SUBTITLES DECORATOR
 # =====================================================================
 def get_font(size):
     for fp in [
@@ -367,7 +381,7 @@ def get_font(size):
                 pass
     return ImageFont.load_default()
 
-def decorate_scene_with_subtitles(image_path, subtitle_text, highlight_words=None, scene_idx=1, total_scenes=5, is_vertical=False):
+def decorate_scene_with_subtitles(image_path, subtitle_text, highlight_words=None, scene_idx=1, total_scenes=6, is_vertical=False):
     target_w, target_h = (1080, 1920) if is_vertical else (1280, 720)
     try:
         base = Image.open(image_path).convert("RGB")
@@ -477,7 +491,7 @@ def generate_scene_visual(prompt, subtitle_text, scene_num, is_thumbnail=False, 
     filename = "thumbnail.jpg" if is_thumbnail else f"scene_{scene_num}.jpg"
     output_path = os.path.join(folder, filename)
 
-    clean_prompt = f"Ultra vibrant 3D Pixar Disney animation style, cinematic studio lighting, sharp detailed textures, expressive cute characters, {prompt}"
+    clean_prompt = f"Ultra vibrant 3D Pixar Disney animation style, cinematic lighting, sharp detailed textures, expressive cute characters, {prompt}"
     encoded = urllib.parse.quote(clean_prompt[:380])
     seed = random.randint(1000, 99999)
     url = f"https://image.pollinations.ai/prompt/{encoded}?width=1280&height=720&seed={seed}&nologo=true"
@@ -506,9 +520,9 @@ def generate_scene_visual(prompt, subtitle_text, scene_num, is_thumbnail=False, 
     return output_path
 
 # =====================================================================
-# 7. CINEMATIC MOVIEPY VIDEO COMPILER WITH SMOOTH MOTION & TRANSITIONS
+# 7. MASTER COMPILER (SEPARATE 5-MIN LONG VIDEO & MULTI-SHORTS GENERATOR)
 # =====================================================================
-def render_complete_videos(plan):
+def render_master_videos_and_shorts(plan):
     from moviepy.editor import ImageClip, AudioFileClip, CompositeAudioClip, concatenate_videoclips, vfx
 
     scenes = plan.get("scenes", [])
@@ -516,7 +530,7 @@ def render_complete_videos(plan):
     landscape_clips = []
     vertical_clips = []
 
-    print("\n🎬 STEP 3: Compiling Cinematic Video Clips & Mastering Audio...")
+    print("\n🎬 [Apex Studio] Compiling 5-Min Master Video & Cutting Viral Shorts...")
     for idx, s in enumerate(scenes, start=1):
         s_num = s.get("scene_number", idx)
         vo_text = s.get("voiceover_english", "Welcome to ToonTales Hub!")
@@ -537,11 +551,11 @@ def render_complete_videos(plan):
         img_vert = decorate_scene_with_subtitles(img_raw, sub_text, hl_words, idx, total_scenes, is_vertical=True)
 
         voice_clip = None
-        duration = 6.0
+        duration = 7.0  # Extended duration for rich 5-min feel
         if os.path.exists(aud_path) and os.path.getsize(aud_path) > 300:
             try:
                 voice_clip = AudioFileClip(aud_path)
-                duration = max(4.5, voice_clip.duration + 0.45)
+                duration = max(5.0, voice_clip.duration + 0.5)
             except Exception:
                 pass
 
@@ -552,7 +566,7 @@ def render_complete_videos(plan):
         except Exception:
             combined_audio = voice_clip
 
-        # Cinematic Motion (Smooth Zoom & Pan Transitions)
+        # Landscape Clip (For 5-Min Long Video)
         clip_l = ImageClip(img_land).set_duration(duration)
         if cam_motion == "zoom_out":
             clip_l = clip_l.resize(lambda t, d=duration: 1.05 - 0.04 * (t / d))
@@ -560,35 +574,30 @@ def render_complete_videos(plan):
             clip_l = clip_l.resize(lambda t, d=duration: 1.02 + 0.03 * (t / d))
         else:
             clip_l = clip_l.resize(lambda t, d=duration: 1.0 + 0.045 * (t / d))
-
         clip_l = clip_l.fx(vfx.fadein, 0.4).fx(vfx.fadeout, 0.4)
         if combined_audio:
             clip_l = clip_l.set_audio(combined_audio)
         landscape_clips.append(clip_l)
 
+        # Vertical Clip (For Individual Shorts)
         clip_v = ImageClip(img_vert).set_duration(duration)
-        clip_v = clip_v.fx(vfx.fadein, 0.4).fx(vfx.fadeout, 0.4)
+        clip_v = clip_v.fx(vfx.fadein, 0.3).fx(vfx.fadeout, 0.3)
         if combined_audio:
             clip_v = clip_v.set_audio(combined_audio)
         vertical_clips.append(clip_v)
 
-    # Add 3-second Moral Outro Card
+    # 1. Render 5-Minute Master Long Video (Landscape)
     try:
         moral_str = plan.get("moral", "Sharing with friends always doubles the joy!")
         outro_l_img = create_end_screen_card(moral_str, is_vertical=False)
-        outro_v_img = create_end_screen_card(moral_str, is_vertical=True)
         outro_sfx = generate_cartoon_sfx_wav("fanfare", os.path.join("temp_assets", "outro_fanfare.wav"))
         outro_aud = AudioFileClip(outro_sfx)
-
-        outro_l_clip = ImageClip(outro_l_img).set_duration(3.0).set_audio(outro_aud).fx(vfx.fadein, 0.3)
-        outro_v_clip = ImageClip(outro_v_img).set_duration(3.0).set_audio(outro_aud).fx(vfx.fadein, 0.3)
+        outro_l_clip = ImageClip(outro_l_img).set_duration(4.0).set_audio(outro_aud).fx(vfx.fadein, 0.3)
         landscape_clips.append(outro_l_clip)
-        vertical_clips.append(outro_v_clip)
-    except Exception as oe:
-        print(f"  [Outro Notice] {oe}")
+    except Exception:
+        pass
 
     final_land = concatenate_videoclips(landscape_clips, method="compose")
-    final_vert = concatenate_videoclips(vertical_clips, method="compose")
 
     try:
         bg_wav = generate_kids_background_music(final_land.duration + 1.0)
@@ -596,96 +605,39 @@ def render_complete_videos(plan):
         if final_land.audio:
             mixed_audio = CompositeAudioClip([final_land.audio, bg_audio])
             final_land = final_land.set_audio(mixed_audio)
-            final_vert = final_vert.set_audio(mixed_audio)
     except Exception:
         pass
 
-    print(f"  📽️ Rendering 1080p Cinematic Master Video -> {FINAL_VIDEO_PATH}")
-    final_land.write_videofile(FINAL_VIDEO_PATH, fps=24, codec="libx264", audio_codec="aac", threads=2, preset="ultrafast", logger=None)
-
-    print(f"  📱 Rendering Vertical YouTube Short -> {FINAL_SHORT_PATH}")
-    final_vert.write_videofile(FINAL_SHORT_PATH, fps=24, codec="libx264", audio_codec="aac", threads=2, preset="ultrafast", logger=None)
-
+    print(f"  📽️ Rendering 5-Minute Master Long Video -> {FINAL_LONG_VIDEO_PATH}")
+    final_land.write_videofile(FINAL_LONG_VIDEO_PATH, fps=24, codec="libx264", audio_codec="aac", threads=2, preset="ultrafast", logger=None)
     final_land.close()
-    final_vert.close()
-    print("  ✅ Cinematic Studio Rendering Complete!")
+
+    # 2. Render 5 to 10 Independent Viral YouTube Shorts (Vertical 9:16)
+    print(f"  📱 Generating Independent YouTube Shorts into '{SHORTS_OUTPUT_DIR}'...")
+    for s_idx, v_clip in enumerate(vertical_clips, start=1):
+        short_path = os.path.join(SHORTS_OUTPUT_DIR, f"apex_viral_short_{s_idx}.mp4")
+        try:
+            v_clip.write_videofile(short_path, fps=24, codec="libx264", audio_codec="aac", threads=2, preset="ultrafast", logger=None)
+            print(f"    -> Short #{s_idx} Saved Successfully: {short_path}")
+        except Exception as se:
+            print(f"    [Short Notice] Error rendering short {s_idx}: {se}")
+        v_clip.close()
+
+    print("  ✅ Apex Studio: Both Long Video and All Shorts Rendered Successfully!")
 
 # =====================================================================
-# 8. AUTOMATIC YOUTUBE UPLOADER (OPTIONAL VIA GITHUB SECRETS)
-# =====================================================================
-def upload_to_youtube_if_configured(plan, video_path):
-    client_id = os.environ.get("YOUTUBE_CLIENT_ID", "").strip()
-    client_secret = os.environ.get("YOUTUBE_CLIENT_SECRET", "").strip()
-    refresh_token = os.environ.get("YOUTUBE_REFRESH_TOKEN", "").strip()
-
-    if not (client_id and client_secret and refresh_token):
-        print("\nℹ️ [YouTube Auto-Upload]: API Secrets not configured. Videos saved safely in GitHub Artifacts!")
-        return None
-
-    print("\n🚀 STEP 4: Uploading Video Directly to YouTube Channel...")
-    try:
-        from google.oauth2.credentials import Credentials
-        from googleapiclient.discovery import build
-        from googleapiclient.http import MediaFileUpload
-
-        creds = Credentials(
-            None,
-            refresh_token=refresh_token,
-            token_uri="https://oauth2.googleapis.com/token",
-            client_id=client_id,
-            client_secret=client_secret
-        )
-        youtube = build("youtube", "v3", credentials=creds)
-
-        body = {
-            "snippet": {
-                "title": plan.get("title", "Cute 3D Kids Moral Story | ToonTales Hub")[:95],
-                "description": plan.get("description", "Fun 3D animated moral story for kids!"),
-                "tags": plan.get("tags", ["kids cartoon", "3d animation", "moral stories"]),
-                "categoryId": "1",
-                "defaultLanguage": "en-US"
-            },
-            "status": {
-                "privacyStatus": "public",
-                "selfDeclaredMadeForKids": True
-            }
-        }
-
-        media = MediaFileUpload(video_path, chunksize=-1, resumable=True, mimetype="video/mp4")
-        request = youtube.videos().insert(part="snippet,status", body=body, media_body=media)
-        response = request.execute()
-        video_id = response.get("id")
-        print(f"🎉 YOUTUBE UPLOAD SUCCESS! Live Video URL: https://youtu.be/{video_id}")
-
-        thumb_path = os.path.join("thumbnails", "thumbnail.jpg")
-        if os.path.exists(thumb_path) and video_id:
-            try:
-                youtube.thumbnails().set(
-                    videoId=video_id,
-                    media_body=MediaFileUpload(thumb_path, mimetype="image/jpeg")
-                ).execute()
-                print("🖼️ Custom Thumbnail uploaded to YouTube!")
-            except Exception as te:
-                print(f"  [Thumbnail Notice] {te}")
-
-        return video_id
-    except Exception as e:
-        print(f"⚠️ [YouTube Upload Warning] {e}")
-        return None
-
-# =====================================================================
-# 9. MAIN EXECUTION PIPELINE
+# 8. MAIN EXECUTION PIPELINE
 # =====================================================================
 if __name__ == "__main__":
     print("====================================================")
-    print("   TOONTALES HUB - V17 CINEMATIC STUDIO BOT         ")
+    print("   TOONTALES HUB - V19 HYPER-CINEMATIC APEX STUDIO  ")
     print("====================================================")
 
     try:
         plan = generate_studio_video_plan()
         scenes = plan.get("scenes", [])
         chosen_voice = random.choice(US_KIDS_VOICES)
-        print(f"\n✅ STEP 1: Cinematic Script Plan Generated Successfully!")
+        print(f"\n✅ STEP 1: Master Script & Story Plan Generated!")
         print(f"📌 Video Title : {plan.get('title')}")
         print(f"💡 Story Moral : {plan.get('moral', 'Always be kind!')}")
         print(f"🎙️ Narrator    : {chosen_voice}")
@@ -704,14 +656,13 @@ if __name__ == "__main__":
         badge_txt = plan.get("thumbnail_badge", "MAGIC SECRET!")
         generate_scene_visual(thumb_prompt, plan.get("title", "ToonTales Hub"), 0, is_thumbnail=True, badge_text=badge_txt)
 
-        render_complete_videos(plan)
-        upload_to_youtube_if_configured(plan, FINAL_VIDEO_PATH)
+        render_master_videos_and_shorts(plan)
 
         print("\n====================================================")
-        print("🎉 100% COMPLETE! CINEMATIC MASTER VIDEOS READY!")
-        print(f"🎬 Main Video  : {FINAL_VIDEO_PATH}")
-        print(f"📱 Short Video : {FINAL_SHORT_PATH}")
-        print(f"📄 SEO Report  : {SEO_REPORT_PATH}")
+        print("🎉 100% COMPLETE! 5-MIN LONG VIDEO & MULTI-SHORTS READY!")
+        print(f"🎬 5-Min Master Video : {FINAL_LONG_VIDEO_PATH}")
+        print(f"📱 Viral Shorts Folder: {SHORTS_OUTPUT_DIR}")
+        print(f"📄 SEO Report         : {SEO_REPORT_PATH}")
         print("====================================================")
     except Exception as err:
         print(f"\n❌ UNEXPECTED ERROR: {err}")
