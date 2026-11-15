@@ -2,53 +2,115 @@ name: ToonTales Studio AI Bot
 
 on:
   schedule:
-    # रोज़ शाम 5:30 बजे (IST) और सुबह 5:30 बजे (IST) ऑटोमैटिक चलेगा (US ऑडियंस के पीक टाइम के हिसाब से)
-    - cron: '0 12 * * *'
+    # रोज़ भारतीय समय (IST) के अनुसार सुबह 5:30 और शाम 5:30 बजे ऑटोमैटिक चलेगा (US Kids Peak Time)
     - cron: '0 0 * * *'
-  workflow_dispatch: # जब चाहें तब एक बटन दबाकर मैन्युअली चला सकते हैं
+    - cron: '0 12 * * *'
+  workflow_dispatch: # जब चाहें तब बटन दबाकर मैन्युअली चला सकते हैं
 
-# एक समय में दो बोट आपस में न टकराएं, इसके लिए सुरक्षा लॉक
+# एक समय में एक ही बोट चलेगा ताकि फाइलें आपस में न टकराएं
 concurrency:
-  group: youtube-bot-group
+  group: toontales-production-pipeline
   cancel-in-progress: false
 
-# ताकि बोट पुरानी कहानियों का रिकॉर्ड (used_topics.json) वापस सेव कर सके
+# बोट को फाइल सेव करने की पूरी परमिशन
 permissions:
   contents: write
 
+# फ्यूचर-प्रूफ सेटिंग्स ताकि Node.js या Python बफरिंग की कोई चेतावनी न आए
+env:
+  PYTHONUNBUFFERED: "1"
+  PYTHONDONTWRITEBYTECODE: "1"
+  PIP_NO_CACHE_DIR: "1"
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+
 jobs:
   produce-and-publish:
-    runs-on: ubuntu-latest
-    timeout-minutes: 25
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
 
     steps:
       - name: 1. Checkout Repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-      - name: 2. Setup Python 3.11
+      - name: 2. Setup Python 3.11 Environment
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-          cache: 'pip'
 
-      - name: 3. Install System Video & Audio Engines (FFmpeg & Fonts)
+      - name: 3. Install Studio Video, Audio & Subtitle Engines (FFmpeg + ImageMagick)
         run: |
           sudo apt-get update -y
-          sudo apt-get install -y ffmpeg fonts-dejavu-core fonts-liberation
+          sudo apt-get install -y ffmpeg imagemagick libsm6 libxext6 fonts-dejavu-core fonts-liberation fonts-freefont-ttf
+          # MoviePy में सबटाइटल्स और टेक्स्ट लिखने के लिए ImageMagick की पॉलिसी ऑटो-फिक्स करना
+          sudo sed -i 's/none/read,write/g' /etc/ImageMagick-6/policy.xml || true
+          sudo sed -i 's/<policy domain="path" rights="none" pattern="@\*"/<!-- <policy domain="path" rights="none" pattern="@\*" -->/g' /etc/ImageMagick-6/policy.xml || true
 
-      - name: 4. Install All AI, Voice, Video & YouTube Libraries
+      - name: 4. Install All AI, Voice, Video & YouTube Libraries (With Auto-Retry)
         run: |
-          python -m pip install --upgrade pip
-          pip install requests edge-tts gTTS pillow moviepy==1.0.3 imageio-ffmpeg google-api-python-client google-auth-httplib2 google-auth-oauthlib
+          python -m pip install --upgrade pip setuptools wheel
+          pip install --retries 5 --timeout 60 \
+            requests \
+            urllib3 \
+            edge-tts \
+            gTTS \
+            pillow==10.4.0 \
+            numpy \
+            decorator \
+            proglog \
+            tqdm \
+            imageio \
+            imageio-ffmpeg \
+            moviepy==1.0.3 \
+            pydub \
+            google-genai \
+            google-generativeai \
+            google-api-python-client \
+            google-auth-httplib2 \
+            google-auth-oauthlib \
+            oauth2client
 
-      - name: 5. Run ToonTales AI Studio Bot
+      - name: 5. Prepare Studio Workspace Folders
+        run: |
+          mkdir -p output_videos temp_assets audio_clips scene_images thumbnails
+
+      - name: 6. Execute ToonTales AI Studio Bot
         env:
-          PYTHONUNBUFFERED: "1"
-        run: python main.py
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          YOUTUBE_CLIENT_ID: ${{ secrets.YOUTUBE_CLIENT_ID }}
+          YOUTUBE_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
+          YOUTUBE_REFRESH_TOKEN: ${{ secrets.YOUTUBE_REFRESH_TOKEN }}
+        run: |
+          python main.py
 
-      - name: 6. Save Bot Memory & Logs (No-Repeat History)
+      - name: 7. Upload Generated Videos & Scripts as Downloadable Backup
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: toontales-studio-output
+          path: |
+            latest_video_plan.json
+            used_topics.json
+            output_videos/
+            thumbnails/
+            *.mp4
+            *.mp3
+            *.png
+            *.jpg
+          if-no-files-found: ignore
+          retention-days: 7
+
+      - name: 8. Auto-Save Bot Memory & History (Crash-Proof Git Push)
+        if: always()
         run: |
           git config --local user.email "bot@toontaleshub.com"
           git config --local user.name "ToonTales Studio Bot"
           git add used_topics.json latest_video_plan.json || true
-          git diff --quiet && git diff --staged --quiet || (git commit -m "Auto-update bot memory and latest script" && git push)
+          if ! git diff --quiet || ! git diff --staged --quiet; then
+            git commit -m "Auto-update bot memory and latest studio plan [skip ci]"
+            git pull --rebase origin main || true
+            git push origin HEAD:main || true
+          else
+            echo "No new changes to commit."
+          fi
